@@ -193,7 +193,8 @@ int HTExceptionNoticeType = 2;
 		[data getBytes:&length range:NSMakeRange(location, sizeof(unsigned long))];
 		location += sizeof(unsigned long);
 		NSData *subdata = [data subdataWithRange:NSMakeRange(location, length)];
-		location += length;
+        // SG - this is a dead store analyzer warning. Delete?
+		//location += length;
 		NSDictionary *dictionary = [NSKeyedUnarchiver unarchiveObjectWithData:subdata];
 		[info addEntriesFromDictionary:[dictionary objectForKey:@"environment info"]];
 		notice.exceptionName = [dictionary objectForKey:@"exception name"];
